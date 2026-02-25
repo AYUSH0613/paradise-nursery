@@ -4,12 +4,16 @@ import ProductList from "./components/ProductList";
 function App() {
   const [showProducts, setShowProducts] = useState(false);
 
+  const handleGetStarted = () => {
+    setShowProducts(true);
+  };
+
   return (
-    <div>
+    <div className="app-container">
       <h1>Welcome to Paradise Nursery</h1>
 
       {!showProducts ? (
-        <button onClick={() => setShowProducts(true)}>
+        <button onClick={handleGetStarted}>
           Get Started
         </button>
       ) : (
