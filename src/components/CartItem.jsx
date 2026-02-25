@@ -14,33 +14,53 @@ function CartItem() {
     <div>
       <h2>Shopping Cart</h2>
 
-      {cart.map(item => (
-        <div key={item.id}>
-          <img src={item.image} alt={item.name} />
-          <h3>{item.name}</h3>
-          <p>${item.price}</p>
+      {cart.length === 0 ? (
+        <p>Your cart is empty</p>
+      ) : (
+        cart.map(item => (
+          <div key={item.id}>
+            <img src={item.image} alt={item.name} />
+            <h3>{item.name}</h3>
+            <p>Unit Price: ${item.price}</p>
 
-          <button onClick={() =>
-            dispatch(updateQuantity({ id: item.id, quantity: item.quantity + 1 }))
-          }>
-            +
-          </button>
+            <button
+              onClick={() =>
+                dispatch(
+                  updateQuantity({
+                    id: item.id,
+                    quantity: item.quantity + 1
+                  })
+                )
+              }
+            >
+              +
+            </button>
 
-          <span>{item.quantity}</span>
+            <span>{item.quantity}</span>
 
-          <button onClick={() =>
-            dispatch(updateQuantity({ id: item.id, quantity: item.quantity - 1 }))
-          }>
-            -
-          </button>
+            <button
+              onClick={() => {
+                if (item.quantity > 1) {
+                  dispatch(
+                    updateQuantity({
+                      id: item.id,
+                      quantity: item.quantity - 1
+                    })
+                  );
+                }
+              }}
+            >
+              -
+            </button>
 
-          <button onClick={() => dispatch(removeItem(item.id))}>
-            Delete
-          </button>
+            <button onClick={() => dispatch(removeItem(item.id))}>
+              Delete
+            </button>
 
-          <p>Total: ${item.price * item.quantity}</p>
-        </div>
-      ))}
+            <p>Total: ${item.price * item.quantity}</p>
+          </div>
+        ))
+      )}
 
       <h2>Total Cart Amount: ${total}</h2>
 
